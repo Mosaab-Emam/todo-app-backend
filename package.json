@@ -1,0 +1,11 @@
+{
+  "name": "todo-backend-express-graphql",
+  "version": "1.0.0",
+  "description": "Todo app backend build with Express and using graphql and mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mosaab Emam",
+  "license": "ISC"
+}
