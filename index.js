@@ -4,7 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const graphqlHTTP = require("express-graphql");
 const graphqlSchema = require("./graphql/schema");
-const config = require("./config");
+
+const PORT = process.env.PORT || 3000;
 
 // Initiate app
 const app = express();
@@ -16,17 +17,23 @@ app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: graphqlSchema
+    schema: graphqlSchema,
+    graphiql: true
   })
 );
 
 // Connect to database
-mongoose.connect(config.mongodb.url, config.mongodb.options);
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+});
 mongoose.connection.once("open", () => {
   console.log("Successfully connected to database");
 });
 
 // Listen to server
-app.listen(config.PORT, () => {
-  console.log(`App is running on port ${config.PORT}`);
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}`);
 });
